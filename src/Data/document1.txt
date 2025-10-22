@@ -1,0 +1,21 @@
+Azure AI Search Overview
+
+Azure AI Search (formerly known as Azure Cognitive Search) is a cloud search service that gives developers infrastructure, APIs, and tools for building a rich search experience over private, heterogeneous content in web, mobile, and enterprise applications.
+
+Key Features:
+- Full-text search with linguistic analysis
+- AI-powered enrichment with cognitive skills
+- Vector search for semantic similarity
+- Hybrid search combining keyword and vector search
+- Scalable infrastructure with high availability
+
+Use Cases:
+Azure AI Search is commonly used for:
+1. Enterprise search across documents and databases
+2. E-commerce product catalogs
+3. Knowledge mining from unstructured data
+4. Semantic search applications
+5. Recommendation systems
+
+Integration:
+Azure AI Search integrates seamlessly with other Azure services including Azure OpenAI, Azure Blob Storage, and Azure Cosmos DB.
