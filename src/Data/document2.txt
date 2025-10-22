@@ -1,0 +1,23 @@
+Azure OpenAI Service
+
+Azure OpenAI Service provides REST API access to OpenAI's powerful language models including GPT-4, GPT-3.5-Turbo, and Embeddings models. The service is backed by Microsoft's enterprise-grade security and compliance.
+
+Available Models:
+- GPT-4: Most capable model for complex reasoning
+- GPT-3.5-Turbo: Fast and efficient for most tasks
+- Text-Embedding-Ada-002: Creates vector embeddings
+- DALL-E: Image generation from text descriptions
+
+Key Benefits:
+1. Enterprise security and compliance
+2. Regional availability and data residency
+3. Responsible AI content filtering
+4. Integration with Azure services
+5. Pay-as-you-go pricing
+
+Common Applications:
+- Chatbots and virtual assistants
+- Content generation and summarization
+- Code generation and assistance
+- Document analysis and Q&A
+- Language translation
