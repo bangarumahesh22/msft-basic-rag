@@ -10,8 +10,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from azure.search.documents import SearchClient
 from azure.core.credentials import AzureKeyCredential
+from azure.ai.inference import ChatCompletionsClient
+from azure.ai.inference.models import SystemMessage, UserMessage
 from dotenv import load_dotenv
-import openai
 
 # Load environment variables
 load_dotenv()
@@ -50,10 +51,10 @@ if SEARCH_ENDPOINT and SEARCH_KEY:
     )
 
 if OPENAI_ENDPOINT and OPENAI_KEY:
-    openai_client = openai.AzureOpenAI(
-        api_key=OPENAI_KEY,
-        api_version=OPENAI_API_VERSION,
-        azure_endpoint=OPENAI_ENDPOINT
+    # Initialize the ChatCompletionsClient
+    openai_client = ChatCompletionsClient(
+        endpoint=f"{OPENAI_ENDPOINT}/openai/deployments/{OPENAI_DEPLOYMENT}",
+        credential=AzureKeyCredential(OPENAI_KEY),
     )
 
 # In-memory conversation storage (simple memory capability)
@@ -130,32 +131,35 @@ async def query(request: QueryRequest):
         
         conversation_history = conversations[request.session_id]
         
-        # Build messages for OpenAI
+        # Build messages for Azure AI Inference API
         messages = [
-            {
-                "role": "system",
-                "content": (
-                    "You are a helpful AI assistant. Answer the user's question based on the provided context. "
-                    "If the context doesn't contain relevant information, say so politely. "
-                    "Keep your answers clear and concise."
-                )
-            }
+            SystemMessage(content=(
+                "You are a helpful AI assistant. Answer the user's question based on the provided context. "
+                "If the context doesn't contain relevant information, say so politely. "
+                "Keep your answers clear and concise."
+            ))
         ]
         
         # Add conversation history (memory capability)
         for msg in conversation_history[-5:]:  # Keep last 5 exchanges
-            messages.append({"role": msg["role"], "content": msg["content"]})
+            if msg["role"] == "user":
+                messages.append(UserMessage(content=msg["content"]))
+            else:
+                # For assistant messages we need to use the content but keep it as a system message
+                # since the Azure AI Inference API only supports SystemMessage and UserMessage
+                messages.append(SystemMessage(content=f"Assistant: {msg['content']}"))
         
         # Add current query with context
         user_message = f"Context:\n{context_str}\n\nQuestion: {request.query}"
-        messages.append({"role": "user", "content": user_message})
+        messages.append(UserMessage(content=user_message))
         
-        # Call Azure OpenAI
-        response = openai_client.chat.completions.create(
-            model=OPENAI_DEPLOYMENT,
+        # Call Azure AI Inference API
+        response = openai_client.complete(
             messages=messages,
+            max_tokens=500,
             temperature=0.7,
-            max_tokens=500
+            top_p=1.0,
+            model=OPENAI_DEPLOYMENT
         )
         
         answer = response.choices[0].message.content
