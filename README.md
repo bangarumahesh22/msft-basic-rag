@@ -1,5 +1,7 @@
 # Azure RAG System
 
+![alt text](image.png)
+
 A simple Retrieval Augmented Generation (RAG) system using Azure AI Search and Azure OpenAI Service.
 
 ## 🏗️ Architecture
