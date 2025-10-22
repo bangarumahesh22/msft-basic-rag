@@ -4,6 +4,6 @@ streamlit==1.28.1
 azure-search-documents==11.4.0
 azure-identity==1.15.0
 azure-ai-inference>=1.0.0
-agent-framework>=0.1.0  # Install with --pre flag: pip install agent-framework --pre
+# To install agent-framework, run: pip install agent-framework --pre
 python-dotenv==1.0.0
 pydantic==2.5.0

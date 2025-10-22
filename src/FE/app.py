@@ -14,7 +14,23 @@ load_dotenv()
 # Configuration
 BACKEND_HOST = os.getenv("BACKEND_HOST", "localhost")
 BACKEND_PORT = os.getenv("BACKEND_PORT", "8000")
-BACKEND_URL = f"http://{BACKEND_HOST}:{BACKEND_PORT}"
+
+# Construct the backend URL based on the host value and environment
+if BACKEND_HOST == "localhost" or BACKEND_HOST.startswith("127.0.0.1"):
+    # Local development - use HTTP and include port
+    BACKEND_URL = f"http://{BACKEND_HOST}:{BACKEND_PORT}"
+elif BACKEND_HOST.startswith("http://") or BACKEND_HOST.startswith("https://"):
+    # Host already includes protocol - use as is
+    BACKEND_URL = BACKEND_HOST
+elif "azurecontainerapps.io" in BACKEND_HOST:
+    # Azure Container Apps domain - always use HTTPS without port
+    BACKEND_URL = f"https://{BACKEND_HOST}"
+else:
+    # Default case - use HTTP with port
+    BACKEND_URL = f"http://{BACKEND_HOST}:{BACKEND_PORT}"
+
+# Print for debugging
+print(f"Backend URL: {BACKEND_URL}")
 
 # Page configuration
 st.set_page_config(
