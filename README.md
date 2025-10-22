@@ -135,10 +135,12 @@ msft-basic-rag/
 │       ├── document2.txt   # Sample document about Azure OpenAI
 │       └── document3.txt   # Sample document about RAG
 ├── requirements.txt        # Python dependencies
+├── test_backend.py         # Backend API test suite
 ├── start.sh               # Quick start script for Linux/Mac
 ├── start.bat              # Quick start script for Windows
 ├── .env.example           # Example environment configuration
 ├── .gitignore            # Git ignore file
+├── CONTRIBUTING.md       # Development guidelines
 └── README.md             # This file
 ```
 
@@ -169,6 +171,21 @@ msft-basic-rag/
 - Uploads documents to the index
 
 ## 🧪 Testing the System
+
+### Quick Test
+
+After starting the backend, you can verify it's working by running:
+
+```bash
+python test_backend.py
+```
+
+This will test:
+- Health check endpoint
+- Query endpoint
+- Conversation management endpoints
+
+### Manual Testing
 
 1. After starting both backend and frontend, open http://localhost:8501
 2. Try asking questions like:
