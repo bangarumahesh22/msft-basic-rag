@@ -61,7 +61,29 @@ BACKEND_HOST=localhost
 BACKEND_PORT=8000
 ```
 
-### 4. Ingest Data
+### 4. Run the Application
+
+#### Option A: Using Quick Start Scripts (Recommended)
+
+**On Linux/Mac:**
+```bash
+./start.sh
+```
+
+**On Windows:**
+```batch
+start.bat
+```
+
+The script will guide you through:
+- Creating a virtual environment
+- Installing dependencies
+- Running data ingestion
+- Starting the backend and frontend
+
+#### Option B: Manual Setup
+
+**Step 1: Ingest Data**
 
 Run the ingestion script to load documents into Azure AI Search:
 
@@ -69,7 +91,7 @@ Run the ingestion script to load documents into Azure AI Search:
 python src/ingestion/ingest.py
 ```
 
-### 5. Start the Backend
+**Step 2: Start the Backend**
 
 In one terminal, start the FastAPI backend:
 
@@ -83,7 +105,7 @@ Or using uvicorn directly:
 uvicorn src.BE.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-### 6. Start the Frontend
+**Step 3: Start the Frontend**
 
 In another terminal, start the Streamlit frontend:
 
@@ -91,7 +113,7 @@ In another terminal, start the Streamlit frontend:
 streamlit run src/FE/app.py
 ```
 
-### 7. Access the Application
+### 5. Access the Application
 
 - Frontend UI: http://localhost:8501
 - Backend API: http://localhost:8000
@@ -113,6 +135,8 @@ msft-basic-rag/
 │       ├── document2.txt   # Sample document about Azure OpenAI
 │       └── document3.txt   # Sample document about RAG
 ├── requirements.txt        # Python dependencies
+├── start.sh               # Quick start script for Linux/Mac
+├── start.bat              # Quick start script for Windows
 ├── .env.example           # Example environment configuration
 ├── .gitignore            # Git ignore file
 └── README.md             # This file
