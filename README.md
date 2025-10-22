@@ -11,6 +11,8 @@ This project implements a basic RAG pipeline with the following components:
 - **Frontend** (`src/FE/`): Streamlit web interface for Q&A
 - **Mock Data** (`src/Data/`): Sample documents for testing
 
+For a detailed architecture overview, see [ARCHITECTURE.md](ARCHITECTURE.md).
+
 ## 📋 Prerequisites
 
 - Python 3.8+
