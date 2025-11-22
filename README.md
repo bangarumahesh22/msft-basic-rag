@@ -110,7 +110,6 @@ uvicorn src.BE.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 **Step 3: Start the Frontend**
-
 In another terminal, start the Streamlit frontend:
 
 ```bash
